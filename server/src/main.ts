@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import session from 'express-session';
 import { sessionConfig } from './config/session.config';
 import passport from 'passport';
+import { GlobalFilter } from './common/filters/global-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,6 +25,8 @@ async function bootstrap() {
 
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.useGlobalFilters(new GlobalFilter());
 
   app.enableCors({
     origin: config.getOrThrow<string>('CLIENT_ORIGIN'),
