@@ -5,9 +5,140 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  userId       String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  nickname     String        @unique
+  name         String?
+  bio          String?
+  avatarKey    String?
+  recipes      Recipe[]
+  followers    Follow[]      @relation("Followers")
+  following    Follow[]      @relation("Following")
+  comments     Comment[]
+  commentLikes CommentLike[]
+  recipeLikes  RecipeLike[]
+  favorites    Favorite[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Follow {
+  followerId  String @default(uuid())
+  followingId String @default(uuid())
+
+  follower  User @relation("Followers", fields: [followerId], references: [userId])
+  following User @relation("Following", fields: [followingId], references: [userId])
+
+  @@id([followerId, followingId])
+}
+
+model Recipe {
+  recipeId    String       @id @default(uuid())
+  title       String
+  description String
+  image_key   String?
+  difficulty  Difficulty
+  cookTime    Int?
+  calories    Int?
+  servings    Int?
+  userId      String
+  user        User         @relation(fields: [userId], references: [userId])
+  comment     Comment[]
+  ingredients Ingredient[]
+  recipelikes RecipeLike[]
+  steps       Step[]
+  tags        RecipeTag[]
+  favorites   Favorite[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Ingredient {
+  ingredientId String  @id @default(uuid())
+  name         String
+  amount       Float?
+  unit         String?
+  recipe       Recipe  @relation(fields: [recipeId], references: [recipeId])
+  recipeId     String
+}
+
+model RecipeLike {
+  user     User   @relation(fields: [userId], references: [userId])
+  userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [recipeId])
+  recipeId String
+
+  @@id([userId, recipeId])
+}
+
+model Step {
+  stepId    String  @id @default(uuid())
+  order     Int
+  content   String
+  image_key String?
+  recipe    Recipe  @relation(fields: [recipeId], references: [recipeId])
+  recipeId  String
+}
+
+model RecipeTag {
+  recipe   Recipe @relation(fields: [recipeId], references: [recipeId])
+  recipeId String
+  tag      Tag    @relation(fields: [tagId], references: [tagId])
+  tagId    String
+
+  @@id([recipeId, tagId])
+}
+
+model Tag {
+  tagId      String      @id @default(uuid())
+  name       String
+  slug       String
+  recipeTags RecipeTag[]
+}
+
+model Comment {
+  commentId   String        @id @default(uuid())
+  content     String
+  createdAt   DateTime      @default(now())
+  parentId    String?
+  parent      Comment?      @relation("Replies", fields: [parentId], references: [commentId])
+  replies     Comment[]     @relation("Replies")
+  recipe      Recipe        @relation(fields: [recipeId], references: [recipeId])
+  recipeId    String
+  author      User?         @relation(fields: [authorId], references: [userId])
+  authorId    String?
+  commentLike CommentLike[]
+}
+
+model CommentLike {
+  user      User     @relation(fields: [userId], references: [userId])
+  userId    String
+  comment   Comment? @relation(fields: [commentId], references: [commentId])
+  commentId String
+
+  @@id([userId, commentId])
+}
+
+model Favorite {
+  user     User   @relation(fields: [userId], references: [userId])
+  userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [recipeId])
+  recipeId String
+
+  @@id([userId, recipeId])
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
 }
