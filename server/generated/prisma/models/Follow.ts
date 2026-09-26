@@ -197,8 +197,8 @@ export type FollowScalarWhereWithAggregatesInput = {
 }
 
 export type FollowCreateInput = {
-  follower?: Prisma.UserCreateNestedOneWithoutFollowersInput
-  following?: Prisma.UserCreateNestedOneWithoutFollowingInput
+  follower?: Prisma.UserCreateNestedOneWithoutFollowingsInput
+  following?: Prisma.UserCreateNestedOneWithoutFollowersInput
 }
 
 export type FollowUncheckedCreateInput = {
@@ -207,8 +207,8 @@ export type FollowUncheckedCreateInput = {
 }
 
 export type FollowUpdateInput = {
-  follower?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
-  following?: Prisma.UserUpdateOneRequiredWithoutFollowingNestedInput
+  follower?: Prisma.UserUpdateOneRequiredWithoutFollowingsNestedInput
+  following?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
 }
 
 export type FollowUncheckedUpdateInput = {
@@ -260,13 +260,6 @@ export type FollowMinOrderByAggregateInput = {
   followingId?: Prisma.SortOrder
 }
 
-export type FollowCreateNestedManyWithoutFollowerInput = {
-  create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput> | Prisma.FollowCreateWithoutFollowerInput[] | Prisma.FollowUncheckedCreateWithoutFollowerInput[]
-  connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowerInput | Prisma.FollowCreateOrConnectWithoutFollowerInput[]
-  createMany?: Prisma.FollowCreateManyFollowerInputEnvelope
-  connect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
-}
-
 export type FollowCreateNestedManyWithoutFollowingInput = {
   create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowingInput, Prisma.FollowUncheckedCreateWithoutFollowingInput> | Prisma.FollowCreateWithoutFollowingInput[] | Prisma.FollowUncheckedCreateWithoutFollowingInput[]
   connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowingInput | Prisma.FollowCreateOrConnectWithoutFollowingInput[]
@@ -274,7 +267,7 @@ export type FollowCreateNestedManyWithoutFollowingInput = {
   connect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
 }
 
-export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
+export type FollowCreateNestedManyWithoutFollowerInput = {
   create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput> | Prisma.FollowCreateWithoutFollowerInput[] | Prisma.FollowUncheckedCreateWithoutFollowerInput[]
   connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowerInput | Prisma.FollowCreateOrConnectWithoutFollowerInput[]
   createMany?: Prisma.FollowCreateManyFollowerInputEnvelope
@@ -288,18 +281,11 @@ export type FollowUncheckedCreateNestedManyWithoutFollowingInput = {
   connect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
 }
 
-export type FollowUpdateManyWithoutFollowerNestedInput = {
+export type FollowUncheckedCreateNestedManyWithoutFollowerInput = {
   create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput> | Prisma.FollowCreateWithoutFollowerInput[] | Prisma.FollowUncheckedCreateWithoutFollowerInput[]
   connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowerInput | Prisma.FollowCreateOrConnectWithoutFollowerInput[]
-  upsert?: Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput | Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput[]
   createMany?: Prisma.FollowCreateManyFollowerInputEnvelope
-  set?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
-  disconnect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
-  delete?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
   connect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
-  update?: Prisma.FollowUpdateWithWhereUniqueWithoutFollowerInput | Prisma.FollowUpdateWithWhereUniqueWithoutFollowerInput[]
-  updateMany?: Prisma.FollowUpdateManyWithWhereWithoutFollowerInput | Prisma.FollowUpdateManyWithWhereWithoutFollowerInput[]
-  deleteMany?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
 }
 
 export type FollowUpdateManyWithoutFollowingNestedInput = {
@@ -316,7 +302,7 @@ export type FollowUpdateManyWithoutFollowingNestedInput = {
   deleteMany?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
 }
 
-export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
+export type FollowUpdateManyWithoutFollowerNestedInput = {
   create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput> | Prisma.FollowCreateWithoutFollowerInput[] | Prisma.FollowUncheckedCreateWithoutFollowerInput[]
   connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowerInput | Prisma.FollowCreateOrConnectWithoutFollowerInput[]
   upsert?: Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput | Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput[]
@@ -344,26 +330,22 @@ export type FollowUncheckedUpdateManyWithoutFollowingNestedInput = {
   deleteMany?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
 }
 
-export type FollowCreateWithoutFollowerInput = {
-  following?: Prisma.UserCreateNestedOneWithoutFollowingInput
-}
-
-export type FollowUncheckedCreateWithoutFollowerInput = {
-  followingId?: string
-}
-
-export type FollowCreateOrConnectWithoutFollowerInput = {
-  where: Prisma.FollowWhereUniqueInput
-  create: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput>
-}
-
-export type FollowCreateManyFollowerInputEnvelope = {
-  data: Prisma.FollowCreateManyFollowerInput | Prisma.FollowCreateManyFollowerInput[]
-  skipDuplicates?: boolean
+export type FollowUncheckedUpdateManyWithoutFollowerNestedInput = {
+  create?: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput> | Prisma.FollowCreateWithoutFollowerInput[] | Prisma.FollowUncheckedCreateWithoutFollowerInput[]
+  connectOrCreate?: Prisma.FollowCreateOrConnectWithoutFollowerInput | Prisma.FollowCreateOrConnectWithoutFollowerInput[]
+  upsert?: Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput | Prisma.FollowUpsertWithWhereUniqueWithoutFollowerInput[]
+  createMany?: Prisma.FollowCreateManyFollowerInputEnvelope
+  set?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
+  disconnect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
+  delete?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
+  connect?: Prisma.FollowWhereUniqueInput | Prisma.FollowWhereUniqueInput[]
+  update?: Prisma.FollowUpdateWithWhereUniqueWithoutFollowerInput | Prisma.FollowUpdateWithWhereUniqueWithoutFollowerInput[]
+  updateMany?: Prisma.FollowUpdateManyWithWhereWithoutFollowerInput | Prisma.FollowUpdateManyWithWhereWithoutFollowerInput[]
+  deleteMany?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
 }
 
 export type FollowCreateWithoutFollowingInput = {
-  follower?: Prisma.UserCreateNestedOneWithoutFollowersInput
+  follower?: Prisma.UserCreateNestedOneWithoutFollowingsInput
 }
 
 export type FollowUncheckedCreateWithoutFollowingInput = {
@@ -380,28 +362,22 @@ export type FollowCreateManyFollowingInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
+export type FollowCreateWithoutFollowerInput = {
+  following?: Prisma.UserCreateNestedOneWithoutFollowersInput
+}
+
+export type FollowUncheckedCreateWithoutFollowerInput = {
+  followingId?: string
+}
+
+export type FollowCreateOrConnectWithoutFollowerInput = {
   where: Prisma.FollowWhereUniqueInput
-  update: Prisma.XOR<Prisma.FollowUpdateWithoutFollowerInput, Prisma.FollowUncheckedUpdateWithoutFollowerInput>
   create: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput>
 }
 
-export type FollowUpdateWithWhereUniqueWithoutFollowerInput = {
-  where: Prisma.FollowWhereUniqueInput
-  data: Prisma.XOR<Prisma.FollowUpdateWithoutFollowerInput, Prisma.FollowUncheckedUpdateWithoutFollowerInput>
-}
-
-export type FollowUpdateManyWithWhereWithoutFollowerInput = {
-  where: Prisma.FollowScalarWhereInput
-  data: Prisma.XOR<Prisma.FollowUpdateManyMutationInput, Prisma.FollowUncheckedUpdateManyWithoutFollowerInput>
-}
-
-export type FollowScalarWhereInput = {
-  AND?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
-  OR?: Prisma.FollowScalarWhereInput[]
-  NOT?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
-  followerId?: Prisma.StringFilter<"Follow"> | string
-  followingId?: Prisma.StringFilter<"Follow"> | string
+export type FollowCreateManyFollowerInputEnvelope = {
+  data: Prisma.FollowCreateManyFollowerInput | Prisma.FollowCreateManyFollowerInput[]
+  skipDuplicates?: boolean
 }
 
 export type FollowUpsertWithWhereUniqueWithoutFollowingInput = {
@@ -420,28 +396,40 @@ export type FollowUpdateManyWithWhereWithoutFollowingInput = {
   data: Prisma.XOR<Prisma.FollowUpdateManyMutationInput, Prisma.FollowUncheckedUpdateManyWithoutFollowingInput>
 }
 
-export type FollowCreateManyFollowerInput = {
-  followingId?: string
+export type FollowScalarWhereInput = {
+  AND?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
+  OR?: Prisma.FollowScalarWhereInput[]
+  NOT?: Prisma.FollowScalarWhereInput | Prisma.FollowScalarWhereInput[]
+  followerId?: Prisma.StringFilter<"Follow"> | string
+  followingId?: Prisma.StringFilter<"Follow"> | string
+}
+
+export type FollowUpsertWithWhereUniqueWithoutFollowerInput = {
+  where: Prisma.FollowWhereUniqueInput
+  update: Prisma.XOR<Prisma.FollowUpdateWithoutFollowerInput, Prisma.FollowUncheckedUpdateWithoutFollowerInput>
+  create: Prisma.XOR<Prisma.FollowCreateWithoutFollowerInput, Prisma.FollowUncheckedCreateWithoutFollowerInput>
+}
+
+export type FollowUpdateWithWhereUniqueWithoutFollowerInput = {
+  where: Prisma.FollowWhereUniqueInput
+  data: Prisma.XOR<Prisma.FollowUpdateWithoutFollowerInput, Prisma.FollowUncheckedUpdateWithoutFollowerInput>
+}
+
+export type FollowUpdateManyWithWhereWithoutFollowerInput = {
+  where: Prisma.FollowScalarWhereInput
+  data: Prisma.XOR<Prisma.FollowUpdateManyMutationInput, Prisma.FollowUncheckedUpdateManyWithoutFollowerInput>
 }
 
 export type FollowCreateManyFollowingInput = {
   followerId?: string
 }
 
-export type FollowUpdateWithoutFollowerInput = {
-  following?: Prisma.UserUpdateOneRequiredWithoutFollowingNestedInput
-}
-
-export type FollowUncheckedUpdateWithoutFollowerInput = {
-  followingId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type FollowUncheckedUpdateManyWithoutFollowerInput = {
-  followingId?: Prisma.StringFieldUpdateOperationsInput | string
+export type FollowCreateManyFollowerInput = {
+  followingId?: string
 }
 
 export type FollowUpdateWithoutFollowingInput = {
-  follower?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
+  follower?: Prisma.UserUpdateOneRequiredWithoutFollowingsNestedInput
 }
 
 export type FollowUncheckedUpdateWithoutFollowingInput = {
@@ -450,6 +438,18 @@ export type FollowUncheckedUpdateWithoutFollowingInput = {
 
 export type FollowUncheckedUpdateManyWithoutFollowingInput = {
   followerId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type FollowUpdateWithoutFollowerInput = {
+  following?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
+}
+
+export type FollowUncheckedUpdateWithoutFollowerInput = {
+  followingId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type FollowUncheckedUpdateManyWithoutFollowerInput = {
+  followingId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 

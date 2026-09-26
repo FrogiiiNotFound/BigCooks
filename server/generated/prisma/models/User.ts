@@ -216,7 +216,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   recipes?: Prisma.RecipeListRelationFilter
   followers?: Prisma.FollowListRelationFilter
-  following?: Prisma.FollowListRelationFilter
+  followings?: Prisma.FollowListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   commentLikes?: Prisma.CommentLikeListRelationFilter
   recipeLikes?: Prisma.RecipeLikeListRelationFilter
@@ -235,7 +235,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   recipes?: Prisma.RecipeOrderByRelationAggregateInput
   followers?: Prisma.FollowOrderByRelationAggregateInput
-  following?: Prisma.FollowOrderByRelationAggregateInput
+  followings?: Prisma.FollowOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   commentLikes?: Prisma.CommentLikeOrderByRelationAggregateInput
   recipeLikes?: Prisma.RecipeLikeOrderByRelationAggregateInput
@@ -257,7 +257,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   recipes?: Prisma.RecipeListRelationFilter
   followers?: Prisma.FollowListRelationFilter
-  following?: Prisma.FollowListRelationFilter
+  followings?: Prisma.FollowListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   commentLikes?: Prisma.CommentLikeListRelationFilter
   recipeLikes?: Prisma.RecipeLikeListRelationFilter
@@ -305,8 +305,8 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
@@ -324,8 +324,8 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
@@ -343,8 +343,8 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
@@ -362,8 +362,8 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -464,16 +464,24 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutFollowingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingsInput, Prisma.UserUncheckedCreateWithoutFollowingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserCreateNestedOneWithoutFollowersInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowersInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutFollowingInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingInput
+export type UserUpdateOneRequiredWithoutFollowingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingsInput, Prisma.UserUncheckedCreateWithoutFollowingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingsInput
+  upsert?: Prisma.UserUpsertWithoutFollowingsInput
   connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowingsInput, Prisma.UserUpdateWithoutFollowingsInput>, Prisma.UserUncheckedUpdateWithoutFollowingsInput>
 }
 
 export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
@@ -482,14 +490,6 @@ export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
   upsert?: Prisma.UserUpsertWithoutFollowersInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowersInput, Prisma.UserUpdateWithoutFollowersInput>, Prisma.UserUncheckedUpdateWithoutFollowersInput>
-}
-
-export type UserUpdateOneRequiredWithoutFollowingNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingInput
-  upsert?: Prisma.UserUpsertWithoutFollowingInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowingInput, Prisma.UserUpdateWithoutFollowingInput>, Prisma.UserUncheckedUpdateWithoutFollowingInput>
 }
 
 export type UserCreateNestedOneWithoutRecipesInput = {
@@ -564,6 +564,47 @@ export type UserUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFavoritesInput, Prisma.UserUpdateWithoutFavoritesInput>, Prisma.UserUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type UserCreateWithoutFollowingsInput = {
+  userId?: string
+  email: string
+  passwordHash: string
+  nickname: string
+  name?: string | null
+  bio?: string | null
+  avatarKey?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
+  recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFollowingsInput = {
+  userId?: string
+  email: string
+  passwordHash: string
+  nickname: string
+  name?: string | null
+  bio?: string | null
+  avatarKey?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
+  recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFollowingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingsInput, Prisma.UserUncheckedCreateWithoutFollowingsInput>
+}
+
 export type UserCreateWithoutFollowersInput = {
   userId?: string
   email: string
@@ -575,7 +616,7 @@ export type UserCreateWithoutFollowersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
@@ -593,7 +634,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
@@ -605,45 +646,51 @@ export type UserCreateOrConnectWithoutFollowersInput = {
   create: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
 }
 
-export type UserCreateWithoutFollowingInput = {
-  userId?: string
-  email: string
-  passwordHash: string
-  nickname: string
-  name?: string | null
-  bio?: string | null
-  avatarKey?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
-  commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
-  recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
-  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+export type UserUpsertWithoutFollowingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowingsInput, Prisma.UserUncheckedUpdateWithoutFollowingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingsInput, Prisma.UserUncheckedCreateWithoutFollowingsInput>
+  where?: Prisma.UserWhereInput
 }
 
-export type UserUncheckedCreateWithoutFollowingInput = {
-  userId?: string
-  email: string
-  passwordHash: string
-  nickname: string
-  name?: string | null
-  bio?: string | null
-  avatarKey?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
-  commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
-  recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
-  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+export type UserUpdateToOneWithWhereWithoutFollowingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowingsInput, Prisma.UserUncheckedUpdateWithoutFollowingsInput>
 }
 
-export type UserCreateOrConnectWithoutFollowingInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
+export type UserUpdateWithoutFollowingsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  nickname?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
+  recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowingsInput = {
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  nickname?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
+  recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -668,7 +715,7 @@ export type UserUpdateWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
@@ -686,54 +733,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
-  commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
-  recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
-  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserUpsertWithoutFollowingInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowingInput, Prisma.UserUncheckedUpdateWithoutFollowingInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutFollowingInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowingInput, Prisma.UserUncheckedUpdateWithoutFollowingInput>
-}
-
-export type UserUpdateWithoutFollowingInput = {
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  nickname?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
-  commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
-  recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
-  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutFollowingInput = {
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  nickname?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -750,8 +750,8 @@ export type UserCreateWithoutRecipesInput = {
   avatarKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
@@ -768,8 +768,8 @@ export type UserUncheckedCreateWithoutRecipesInput = {
   avatarKey?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
@@ -802,8 +802,8 @@ export type UserUpdateWithoutRecipesInput = {
   avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
@@ -820,8 +820,8 @@ export type UserUncheckedUpdateWithoutRecipesInput = {
   avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -839,8 +839,8 @@ export type UserCreateWithoutRecipeLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
@@ -857,8 +857,8 @@ export type UserUncheckedCreateWithoutRecipeLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -891,8 +891,8 @@ export type UserUpdateWithoutRecipeLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
@@ -909,8 +909,8 @@ export type UserUncheckedUpdateWithoutRecipeLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
@@ -927,8 +927,8 @@ export type UserCreateWithoutCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
@@ -945,8 +945,8 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -979,8 +979,8 @@ export type UserUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
@@ -997,8 +997,8 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
@@ -1015,8 +1015,8 @@ export type UserCreateWithoutCommentLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
@@ -1033,8 +1033,8 @@ export type UserUncheckedCreateWithoutCommentLikesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
@@ -1067,8 +1067,8 @@ export type UserUpdateWithoutCommentLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
@@ -1085,8 +1085,8 @@ export type UserUncheckedUpdateWithoutCommentLikesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
@@ -1103,8 +1103,8 @@ export type UserCreateWithoutFavoritesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeCreateNestedManyWithoutUserInput
@@ -1121,8 +1121,8 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   recipes?: Prisma.RecipeUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
-  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followings?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   commentLikes?: Prisma.CommentLikeUncheckedCreateNestedManyWithoutUserInput
   recipeLikes?: Prisma.RecipeLikeUncheckedCreateNestedManyWithoutUserInput
@@ -1155,8 +1155,8 @@ export type UserUpdateWithoutFavoritesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUpdateManyWithoutUserNestedInput
@@ -1173,8 +1173,8 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipes?: Prisma.RecipeUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
-  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followings?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   commentLikes?: Prisma.CommentLikeUncheckedUpdateManyWithoutUserNestedInput
   recipeLikes?: Prisma.RecipeLikeUncheckedUpdateManyWithoutUserNestedInput
@@ -1188,7 +1188,7 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
 export type UserCountOutputType = {
   recipes: number
   followers: number
-  following: number
+  followings: number
   comments: number
   commentLikes: number
   recipeLikes: number
@@ -1198,7 +1198,7 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipes?: boolean | UserCountOutputTypeCountRecipesArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
-  following?: boolean | UserCountOutputTypeCountFollowingArgs
+  followings?: boolean | UserCountOutputTypeCountFollowingsArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
   commentLikes?: boolean | UserCountOutputTypeCountCommentLikesArgs
   recipeLikes?: boolean | UserCountOutputTypeCountRecipeLikesArgs
@@ -1232,7 +1232,7 @@ export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends runtime.Types.
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountFollowingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountFollowingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FollowWhereInput
 }
 
@@ -1277,7 +1277,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
-  following?: boolean | Prisma.User$followingArgs<ExtArgs>
+  followings?: boolean | Prisma.User$followingsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   commentLikes?: boolean | Prisma.User$commentLikesArgs<ExtArgs>
   recipeLikes?: boolean | Prisma.User$recipeLikesArgs<ExtArgs>
@@ -1325,7 +1325,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipes?: boolean | Prisma.User$recipesArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
-  following?: boolean | Prisma.User$followingArgs<ExtArgs>
+  followings?: boolean | Prisma.User$followingsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   commentLikes?: boolean | Prisma.User$commentLikesArgs<ExtArgs>
   recipeLikes?: boolean | Prisma.User$recipeLikesArgs<ExtArgs>
@@ -1340,7 +1340,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     recipes: Prisma.$RecipePayload<ExtArgs>[]
     followers: Prisma.$FollowPayload<ExtArgs>[]
-    following: Prisma.$FollowPayload<ExtArgs>[]
+    followings: Prisma.$FollowPayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     commentLikes: Prisma.$CommentLikePayload<ExtArgs>[]
     recipeLikes: Prisma.$RecipeLikePayload<ExtArgs>[]
@@ -1752,7 +1752,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   recipes<T extends Prisma.User$recipesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recipesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  followings<T extends Prisma.User$followingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   commentLikes<T extends Prisma.User$commentLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipeLikes<T extends Prisma.User$recipeLikesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recipeLikesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2236,9 +2236,9 @@ export type User$followersArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.following
+ * User.followings
  */
-export type User$followingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$followingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Follow
    */

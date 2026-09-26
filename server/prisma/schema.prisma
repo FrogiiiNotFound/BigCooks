@@ -21,8 +21,8 @@ model User {
   bio          String?
   avatarKey    String?
   recipes      Recipe[]
-  followers    Follow[]      @relation("Followers")
-  following    Follow[]      @relation("Following")
+  followers    Follow[]      @relation("Following")
+  followings   Follow[]      @relation("Follower")
   comments     Comment[]
   commentLikes CommentLike[]
   recipeLikes  RecipeLike[]
@@ -35,7 +35,7 @@ model Follow {
   followerId  String @default(uuid())
   followingId String @default(uuid())
 
-  follower  User @relation("Followers", fields: [followerId], references: [userId])
+  follower  User @relation("Follower", fields: [followerId], references: [userId])
   following User @relation("Following", fields: [followingId], references: [userId])
 
   @@id([followerId, followingId])
@@ -46,7 +46,7 @@ model Recipe {
   title       String
   description String
   image_key   String?
-  difficulty  Difficulty
+  difficulty  Difficulty?
   cookTime    Int?
   calories    Int?
   servings    Int?
@@ -54,7 +54,7 @@ model Recipe {
   user        User         @relation(fields: [userId], references: [userId])
   comment     Comment[]
   ingredients Ingredient[]
-  recipelikes RecipeLike[]
+  recipeLikes RecipeLike[]
   steps       Step[]
   tags        RecipeTag[]
   favorites   Favorite[]
@@ -67,14 +67,14 @@ model Ingredient {
   name         String
   amount       Float?
   unit         String?
-  recipe       Recipe  @relation(fields: [recipeId], references: [recipeId])
+  recipe       Recipe  @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
   recipeId     String
 }
 
 model RecipeLike {
   user     User   @relation(fields: [userId], references: [userId])
   userId   String
-  recipe   Recipe @relation(fields: [recipeId], references: [recipeId])
+  recipe   Recipe @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
   recipeId String
 
   @@id([userId, recipeId])
@@ -85,12 +85,12 @@ model Step {
   order     Int
   content   String
   image_key String?
-  recipe    Recipe  @relation(fields: [recipeId], references: [recipeId])
+  recipe    Recipe  @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
   recipeId  String
 }
 
 model RecipeTag {
-  recipe   Recipe @relation(fields: [recipeId], references: [recipeId])
+  recipe   Recipe @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
   recipeId String
   tag      Tag    @relation(fields: [tagId], references: [tagId])
   tagId    String
@@ -112,7 +112,7 @@ model Comment {
   parentId    String?
   parent      Comment?      @relation("Replies", fields: [parentId], references: [commentId])
   replies     Comment[]     @relation("Replies")
-  recipe      Recipe        @relation(fields: [recipeId], references: [recipeId])
+  recipe      Recipe        @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
   recipeId    String
   author      User?         @relation(fields: [authorId], references: [userId])
   authorId    String?

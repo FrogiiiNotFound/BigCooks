@@ -198,7 +198,7 @@ export type RecipeLikeScalarWhereWithAggregatesInput = {
 
 export type RecipeLikeCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutRecipeLikesInput
-  recipe: Prisma.RecipeCreateNestedOneWithoutRecipelikesInput
+  recipe: Prisma.RecipeCreateNestedOneWithoutRecipeLikesInput
 }
 
 export type RecipeLikeUncheckedCreateInput = {
@@ -208,7 +208,7 @@ export type RecipeLikeUncheckedCreateInput = {
 
 export type RecipeLikeUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutRecipeLikesNestedInput
-  recipe?: Prisma.RecipeUpdateOneRequiredWithoutRecipelikesNestedInput
+  recipe?: Prisma.RecipeUpdateOneRequiredWithoutRecipeLikesNestedInput
 }
 
 export type RecipeLikeUncheckedUpdateInput = {
@@ -345,7 +345,7 @@ export type RecipeLikeUncheckedUpdateManyWithoutRecipeNestedInput = {
 }
 
 export type RecipeLikeCreateWithoutUserInput = {
-  recipe: Prisma.RecipeCreateNestedOneWithoutRecipelikesInput
+  recipe: Prisma.RecipeCreateNestedOneWithoutRecipeLikesInput
 }
 
 export type RecipeLikeUncheckedCreateWithoutUserInput = {
@@ -425,7 +425,7 @@ export type RecipeLikeCreateManyUserInput = {
 }
 
 export type RecipeLikeUpdateWithoutUserInput = {
-  recipe?: Prisma.RecipeUpdateOneRequiredWithoutRecipelikesNestedInput
+  recipe?: Prisma.RecipeUpdateOneRequiredWithoutRecipeLikesNestedInput
 }
 
 export type RecipeLikeUncheckedUpdateWithoutUserInput = {
