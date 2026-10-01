@@ -1,10 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { RegisterDto } from "./dto/register.dto";
 import { PrismaService } from "../prisma/prisma.service";
 import { hash, verify } from "argon2";
 import { SessionUser } from "./interfaces/session-user.interface";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import argon2 from "argon2";
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,15 @@ export class AuthService {
     ) {}
 
     async register(registerDto: RegisterDto) {
+        const existingUser = await this.prismaService.user.findUnique({
+            where: { email: registerDto.email.toLowerCase() },
+            select: { userId: true },
+        });
+
+        if (existingUser) {
+            throw new ConflictException("User with this email already exists");
+        }
+
         const passwordHash = await hash(registerDto.password);
 
         const user = await this.prismaService.user.create({
@@ -29,20 +39,20 @@ export class AuthService {
     }
 
     async login(user: SessionUser) {
-        return await this.toAuthResponse(user);
+        return { user: { userId: user.userId, nickname: user.nickname } };
     }
 
-    async validateUser(email: string, password: string) {
+    async validateUser(email: string, password: string): Promise<SessionUser> {
         const user = await this.prismaService.user.findUnique({
-            where: { email },
+            where: { email: email.toLowerCase() },
+            select: { userId: true, email: true, nickname: true, passwordHash: true },
         });
 
-        if (!user) return null;
+        if (!user || !(await argon2.verify(user.passwordHash, password))) {
+            throw new UnauthorizedException("Invalid credentials");
+        }
 
-        const isValid = await verify(user.passwordHash, password);
-        if (!isValid) return null;
-
-        return user;
+        return { userId: user.userId, email: user.email, nickname: user.nickname };
     }
 
     private async toAuthResponse(user: SessionUser) {
