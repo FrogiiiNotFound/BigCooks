@@ -1,4 +1,4 @@
-import { Type } from "class-transformer";
+import { Transform, Type } from "class-transformer";
 import {
     IsArray,
     IsEnum,
@@ -13,7 +13,7 @@ import {
     MinLength,
     ValidateNested,
 } from "class-validator";
-import { Difficulty } from "../../../generated/prisma/enums";
+import { Difficulty } from "../../generated/prisma/enums";
 import { IngredientDto } from "./ingredient.dto";
 import { StepDto } from "./step.dto";
 
@@ -32,39 +32,45 @@ export class CreateRecipeDto {
 
     @IsOptional()
     @IsEnum(Difficulty, { message: "Difficulty must be easy, medium or hard" })
-    difficulty: Difficulty;
+    difficulty?: Difficulty;
 
     @IsOptional()
+    @Type(() => Number)
     @IsInt({ message: "Cook time must be a number" })
     @Min(1, { message: "Cook time must be at least 1 minute" })
     @Max(1440, { message: "Cook time must not exceed 1440 minutes" })
-    cookTime: number;
+    cookTime?: number;
 
     @IsOptional()
+    @Type(() => Number)
     @IsInt({ message: "Calories must be a number" })
     @Min(0, { message: "Calories must be at least 0" })
     @Max(10000, { message: "Calories must not exceed 10000" })
-    calories: number;
+    calories?: number;
 
     @IsOptional()
+    @Type(() => Number)
     @IsInt({ message: "Servings must be a number" })
-    @Min(0, { message: "Servings must be at least 1" })
+    @Min(1, { message: "Servings must be at least 1" })
     @Max(100, { message: "Servings must not exceed 100" })
-    servings: number;
+    servings?: number;
 
     @IsNotEmpty()
+    @Transform(({ value }) => (typeof value === "string" ? JSON.parse(value) : value))
     @IsArray({ message: "Ingredients must be an array" })
     @ValidateNested({ each: true })
     @Type(() => IngredientDto)
     ingredients: IngredientDto[];
 
     @IsNotEmpty()
+    @Transform(({ value }) => (typeof value === "string" ? JSON.parse(value) : value))
     @IsArray({ message: "Steps must be an array" })
     @ValidateNested({ each: true })
     @Type(() => StepDto)
     steps: StepDto[];
 
     @IsNotEmpty()
+    @Transform(({ value }) => (typeof value === "string" ? JSON.parse(value) : value))
     @IsArray({ message: "Tags must be an array" })
     @IsUUID("4", { each: true, message: "Each tag id must be a valid UUID" })
     tagIds: string[];

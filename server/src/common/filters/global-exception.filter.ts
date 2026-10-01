@@ -1,58 +1,52 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  Logger,
-} from '@nestjs/common';
-import { Response } from 'express';
-import { appendFileSync, existsSync, mkdirSync } from 'fs';
-import { dirname, join } from 'path';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from "@nestjs/common";
+import { Response } from "express";
+import { appendFileSync, existsSync, mkdirSync } from "fs";
+import { dirname, join } from "path";
 
 @Catch()
 export class GlobalFilter implements ExceptionFilter {
-  private readonly logger = new Logger(GlobalFilter.name);
-  private readonly logFile = join(process.cwd(), 'logs/exception.log');
+    private readonly logger = new Logger(GlobalFilter.name);
+    private readonly logFile = join(process.cwd(), "logs/exception.log");
 
-  catch(exception: any, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse() as Response;
+    catch(exception: any, host: ArgumentsHost) {
+        console.error("exception:", exception);
+        console.error("stack:", exception?.stack);
 
-    const status =
-      exception instanceof HttpException ? exception.getStatus() : 500;
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse() as Response;
 
-    const error =
-      exception instanceof HttpException
-        ? exception.message
-        : 'Internal server error';
+        const status = exception instanceof HttpException ? exception.getStatus() : 500;
 
-    const message =
-      exception instanceof HttpException
-        ? (exception.getResponse() as any).error
-        : ['Something went wrong. Try again later'];
+        const error =
+            exception instanceof HttpException ? exception.message : "Internal server error";
 
-    this.logger.error(error);
+        const message =
+            exception instanceof HttpException
+                ? (exception.getResponse() as any).error
+                : ["Something went wrong. Try again later"];
 
-    if ((exception as Error).stack !== undefined && status === 500) {
-      this.writeToFile(`${(exception as Error).stack!}\n`);
+        this.logger.error(error);
+
+        if ((exception as Error).stack !== undefined && status === 500) {
+            this.writeToFile(`${(exception as Error).stack!}\n`);
+        }
+
+        response.status(status).json({
+            status,
+            error,
+            timeStamp: new Date().toISOString(),
+            path: ctx.getRequest().url,
+            message: message instanceof Array ? [...message] : message,
+        });
     }
 
-    response.status(status).json({
-      status,
-      error,
-      timeStamp: new Date().toISOString(),
-      path: ctx.getRequest().url,
-      message: message instanceof Array ? [...message] : message,
-    });
-  }
+    private writeToFile(error: string) {
+        const logDir = dirname(this.logFile);
 
-  private writeToFile(error: string) {
-    const logDir = dirname(this.logFile);
+        if (!existsSync(logDir)) {
+            mkdirSync(logDir, { recursive: true });
+        }
 
-    if (!existsSync(logDir)) {
-      mkdirSync(logDir, { recursive: true });
+        appendFileSync(this.logFile, error);
     }
-
-    appendFileSync(this.logFile, error);
-  }
 }

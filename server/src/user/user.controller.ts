@@ -1,8 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query,
+    UploadedFile,
+} from "@nestjs/common";
+import { UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { CurrentUser } from "../auth/decorators/current-user.decorator";
 import { PaginationDto } from "../common/dto/pagination.dto";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 import { UserService } from "./user.service";
+import { FILE_MAX_SIZE } from "../common/constants/storage.constants";
 
 @Controller("user")
 export class UserController {
@@ -14,8 +28,16 @@ export class UserController {
     }
 
     @Get(":id")
-    async getUserById(@Body() userId: string) {
+    async getUserById(@Param("id") userId: string) {
         return await this.userService.getUserById(userId);
+    }
+
+    @Get(":id/profile")
+    async getUserProfile(
+        @Param("id") userId: string,
+        @CurrentUser("userId") currentUserId: string,
+    ) {
+        return await this.userService.getUserProfile(userId, currentUserId);
     }
 
     @Get(":id/followers")
@@ -45,11 +67,15 @@ export class UserController {
     }
 
     @Patch("me/avatar")
-    async updateUserAvatar(@CurrentUser("userId") userId: string) {
-        return await this.userService.updateUserAvatar(userId);
+    @UseInterceptors(FileInterceptor("file", { limits: { fileSize: FILE_MAX_SIZE } }))
+    async updateUserAvatar(
+        @CurrentUser("userId") userId: string,
+        @UploadedFile() file: Express.Multer.File,
+    ) {
+        return await this.userService.updateUserAvatar(userId, file);
     }
 
-    @Delete()
+    @Delete("me/avatar")
     async deleteUserAvatar(@CurrentUser("userId") userId: string) {
         return await this.userService.deleteUserAvatar(userId);
     }

@@ -5,7 +5,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -29,6 +29,7 @@ model User {
   favorites    Favorite[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  recipeViews  RecipeView[]
 }
 
 model Follow {
@@ -45,7 +46,8 @@ model Recipe {
   recipeId    String       @id @default(uuid())
   title       String
   description String
-  image_key   String?
+  imageKey    String?
+  views       Int          @default(0)
   difficulty  Difficulty?
   cookTime    Int?
   calories    Int?
@@ -58,6 +60,7 @@ model Recipe {
   steps       Step[]
   tags        RecipeTag[]
   favorites   Favorite[]
+  recipeViews RecipeView[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 }
@@ -80,13 +83,23 @@ model RecipeLike {
   @@id([userId, recipeId])
 }
 
-model Step {
-  stepId    String  @id @default(uuid())
-  order     Int
-  content   String
-  image_key String?
-  recipe    Recipe  @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
+model RecipeView {
   recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [userId])
+  createdAt DateTime @default(now())
+
+  @@id([recipeId, userId])
+}
+
+model Step {
+  stepId   String  @id @default(uuid())
+  order    Int
+  content  String
+  imageKey String?
+  recipe   Recipe  @relation(fields: [recipeId], references: [recipeId], onDelete: Cascade)
+  recipeId String
 }
 
 model RecipeTag {
@@ -108,7 +121,9 @@ model Tag {
 model Comment {
   commentId   String        @id @default(uuid())
   content     String
+  likesCount  Int           @default(0)
   createdAt   DateTime      @default(now())
+  deletedAt   DateTime?
   parentId    String?
   parent      Comment?      @relation("Replies", fields: [parentId], references: [commentId])
   replies     Comment[]     @relation("Replies")

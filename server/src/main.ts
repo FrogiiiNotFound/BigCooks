@@ -1,39 +1,48 @@
-import { NestFactory } from '@nestjs/core';
-import cookieParser from 'cookie-parser';
-import { ConfigService } from '@nestjs/config';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import session from 'express-session';
-import { sessionConfig } from './config/session.config';
-import passport from 'passport';
-import { GlobalFilter } from './common/filters/global-exception.filter';
+import { createClient, RedisClientType } from "redis";
+import { NestFactory } from "@nestjs/core";
+import cookieParser from "cookie-parser";
+import { ConfigService } from "@nestjs/config";
+import { AppModule } from "./app.module";
+import { BadRequestException, ValidationPipe } from "@nestjs/common";
+import session from "express-session";
+import { sessionConfig } from "./config/session.config";
+import passport from "passport";
+import { GlobalFilter } from "./common/filters/global-exception.filter";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const config = app.get(ConfigService);
+    const app = await NestFactory.create(AppModule);
+    const config = app.get(ConfigService);
 
-  app.setGlobalPrefix('api/v1');
-  app.use(cookieParser(config.getOrThrow<string>('COOKIE_SECRET')));
+    const redis: RedisClientType = createClient({ url: config.getOrThrow<string>("REDIS_URI") });
+    await redis.connect();
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-    }),
-  );
+    app.setGlobalPrefix("api/v1");
+    app.use(cookieParser(config.getOrThrow<string>("COOKIE_SECRET")));
 
-  app.use(session(sessionConfig(config)));
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+            exceptionFactory: errors => {
+                console.log(JSON.stringify(errors, null, 2));
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+                return new BadRequestException(errors);
+            },
+        }),
+    );
 
-  app.useGlobalFilters(new GlobalFilter());
+    app.use(session(sessionConfig(config, redis)));
 
-  app.enableCors({
-    origin: config.getOrThrow<string>('CLIENT_ORIGIN'),
-    credentials: true,
-    exposedHeaders: ['set-cookie'],
-  });
+    app.use(passport.initialize());
+    app.use(passport.session());
 
-  await app.listen(config.getOrThrow<string>('PORT'));
+    app.useGlobalFilters(new GlobalFilter());
+
+    app.enableCors({
+        origin: config.getOrThrow<string>("CLIENT_ORIGIN"),
+        credentials: true,
+        exposedHeaders: ["set-cookie"],
+    });
+
+    await app.listen(config.getOrThrow<string>("PORT"));
 }
 bootstrap();
