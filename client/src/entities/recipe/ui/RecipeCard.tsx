@@ -3,7 +3,7 @@ import heart from '@/shared/assets/images/icons/heart.png';
 import favourite from '@/shared/assets/images/icons/favourite.svg';
 import template from '@/shared/assets/images/template.jpg';
 
-export const RecipePost = () => {
+export const RecipeCard = () => {
   return (
     <div className="border border-gray-200 max-w-fit p-5 rounded-xl flex-1/4 bg-white shadow-md">
       <div className="mb-2">
@@ -76,19 +76,15 @@ export const RecipePost = () => {
         </div>
       </div>
       <div className="flex gap-4 items-center">
-        <div className="bg-emerald-500 px-5 py-1.5 text-[#FFF9F8] w-fit text-[14px]">
+        <div className="bg-emerald-500 px-5 py-1.5 text-[#FFF9F8] w-fit text-[14px] cursor-pointer duration-100 hover:bg-emerald-600 active:bg-emerald-700">
           <p>Открыть рецепт</p>
         </div>
         <div className="flex gap-3 items-center">
-          <div className="flex gap-1.5 items-center">
-            <div className="max-w-5">
-              <img src={heart} alt="likes-icon" />
-            </div>
+          <div className="max-w-5 cursor-pointer">
+            <img src={heart} alt="likes-icon" />
           </div>
-          <div className="flex gap-1.5 items-center">
-            <div className="max-w-5">
-              <img src={favourite} alt="favourite-icon" />
-            </div>
+          <div className="max-w-5 cursor-pointer">
+            <img src={favourite} alt="favourite-icon" />
           </div>
         </div>
       </div>

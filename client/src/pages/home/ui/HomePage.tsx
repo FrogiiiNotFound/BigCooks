@@ -1,4 +1,4 @@
-import { RecipePost } from '@/entities/recipe/ui/RecipePost';
+import { RecipeCard } from '@/entities/recipe/ui/RecipeCard';
 import { Filters } from './Filters';
 
 const HomePage = () => {
@@ -9,12 +9,12 @@ const HomePage = () => {
       </div>
       <Filters />
       <div className="flex gap-x-5 gap-y-4 flex-wrap">
-        <RecipePost />
-        <RecipePost />
-        <RecipePost />
-        <RecipePost />
-        <RecipePost />
-        <RecipePost />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
       </div>
     </div>
   );
