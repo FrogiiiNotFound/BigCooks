@@ -5,7 +5,7 @@ import template from '@/shared/assets/images/template.jpg';
 
 export const RecipePost = () => {
   return (
-    <div className="border border-gray-300 max-w-fit p-5 rounded-xl flex-1/4">
+    <div className="border border-gray-200 max-w-fit p-5 rounded-xl flex-1/4 bg-white shadow-md">
       <div className="mb-2">
         <div className="bg-amber-500 text-white px-3 py-0.5 rounded-md max-w-fit">
           <p className="text-[11px]">Популярное</p>
@@ -13,21 +13,21 @@ export const RecipePost = () => {
       </div>
       <div className="flex">
         <div className="flex gap-1 items-center mb-1">
-          <h2 className="text-xl">Плов с мясом</h2>
+          <h2 className="text-[22px]">Плов с мясом</h2>
         </div>
       </div>
       <div className="flex gap-3 items-center mb-2">
         <div className="flex gap-1.5 items-center">
-          <div className="max-w-3.5">
+          <div className="max-w-[13px]">
             <img src={heart} alt="likes-icon" />
           </div>
-          <p className="">69</p>
+          <p className="text-[13px]">69</p>
         </div>
         <div className="flex gap-1.5 items-center">
-          <div className="max-w-3.5">
+          <div className="max-w-[13px]">
             <img src={clock} alt="views-icon" />
           </div>
-          <p className="">38</p>
+          <p className="text-[13px]">38</p>
         </div>
       </div>
       <div className="mb-3 max-w-120">
@@ -35,13 +35,13 @@ export const RecipePost = () => {
       </div>
       <div className="flex gap-3 mb-4">
         <div className="flex gap-2 items-center">
-          <div className="max-w-4">
+          <div className="max-w-3.5">
             <img src={clock} alt="difficulty-icon" />
           </div>
           <p className="text-[14px]">Средняя</p>
         </div>
         <div className="flex gap-2 items-center">
-          <div className="max-w-4">
+          <div className="max-w-3.5">
             <img src={clock} alt="time-icon" />
           </div>
           <div className="flex gap-0.5 items-center text-[14px]">
@@ -50,7 +50,7 @@ export const RecipePost = () => {
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          <div className="max-w-4">
+          <div className="max-w-3.5">
             <img src={clock} alt="time-icon" />
           </div>
           <div className="flex gap-0.5 items-center text-[14px]">
@@ -77,7 +77,7 @@ export const RecipePost = () => {
       </div>
       <div className="flex gap-4 items-center">
         <div className="bg-emerald-500 px-5 py-1.5 text-[#FFF9F8] w-fit text-[14px]">
-          <p>Читать далее</p>
+          <p>Открыть рецепт</p>
         </div>
         <div className="flex gap-3 items-center">
           <div className="flex gap-1.5 items-center">

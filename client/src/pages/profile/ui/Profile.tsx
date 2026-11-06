@@ -1,10 +1,11 @@
+import RecipeCardSmall from '@/entities/recipe/ui/RecipeCardSmall';
 import { RecipePost } from '@/entities/recipe/ui/RecipePost';
 import userIcon from '@/shared/assets/images/icons/user-icon.svg';
 
 export const Profile = () => {
   return (
     <div className="__container">
-      <div className="flex gap-10 items-center bg-white py-5 rounded-md">
+      <div className="flex gap-10 items-center py-5 rounded-md">
         <div className="max-w-[100px] border border-gray-500 p-10 rounded-4xl">
           <img src={userIcon} alt="" />
         </div>
@@ -71,12 +72,9 @@ export const Profile = () => {
         <div className="">
           <h3 className="mb-3">Рецепты</h3>
           <div className="flex gap-x-5 gap-y-4 flex-wrap">
-            <RecipePost />
-            <RecipePost />
-            <RecipePost />
-            <RecipePost />
-            <RecipePost />
-            <RecipePost />
+            <RecipeCardSmall />
+            <RecipeCardSmall />
+            <RecipeCardSmall />
           </div>
         </div>
       </div>
