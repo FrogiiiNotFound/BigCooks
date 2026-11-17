@@ -4,6 +4,7 @@ import MainLayout from '../layouts/main-layout/ui/MainLayout';
 import Register from '@/pages/register/ui/Register';
 import Login from '@/pages/login/ui/Login';
 import { Profile } from '@/pages/profile/ui/Profile';
+import { RecipePage } from '@/pages/recipePage/ui/RecipePage';
 
 export const AppRouter = () => {
   return (
@@ -11,6 +12,7 @@ export const AppRouter = () => {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/me/profile" element={<Profile />} />
+        <Route path="/recipe/:id" element={<RecipePage />} />
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />

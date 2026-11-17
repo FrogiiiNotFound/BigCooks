@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import url(https://fonts.googleapis.com/css?family=Google+Sans+Flex:100,200,300,regular,500,600,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Shantell+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
 
 @layer base {
   * {
@@ -7,7 +9,7 @@
 
   body {
     background-color: #f9fafb;
-    font-family: 'IBM Plex Sans', sans-serif;
+    font-family: 'Shantell Sans', sans-serif;
     font-weight: 400;
     font-size: 16px;
     color: #000;

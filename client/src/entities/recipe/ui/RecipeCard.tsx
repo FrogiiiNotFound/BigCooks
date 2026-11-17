@@ -1,5 +1,5 @@
-import clock from '@/shared/assets/images/icons/clock.png';
-import heart from '@/shared/assets/images/icons/heart.png';
+import clock from '@/shared/assets/images/icons/clock.svg';
+import heart from '@/shared/assets/images/icons/heart.svg';
 import favourite from '@/shared/assets/images/icons/favourite.svg';
 import template from '@/shared/assets/images/template.jpg';
 
